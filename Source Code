@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CT Calculator</title>
+  <style>
+    * {
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to right, #ccefff, #eae4ff);
+      padding: 40px 0;
+    }
+
+    h1 {
+      color: #5b5fc7;
+    }
+
+    .calculator {
+      width: 500px;
+      height: 550px;
+      background-color: #ffffff;
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
+      margin: auto;
+      padding: 30px;
+      border-radius: 20px;
+    }
+
+    #inputbox {
+      width: 450px;
+      height: 60px;
+      background-color: #dff6ff;
+      margin: 20px auto;
+      border-radius: 10px;
+      font-size: 30px;
+      padding: 10px;
+      overflow-x: auto;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .keyboard {
+      display: grid;
+      padding: 25px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .keyboard > div {
+      height: 60px;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+      background-color: #92c7cf;
+      color: #fff;
+    }
+
+    .btn:hover {
+      background-color: #6ab3bd;
+      transform: scale(1.05);
+    }
+
+    .btn-operator {
+      background: linear-gradient(to right, #9f5de2, #d97ef2);
+      color: #fff;
+    }
+
+    .btn-operator:hover {
+      background: linear-gradient(to right, #8a4dd1, #c967ef);
+      transform: scale(1.05);
+    }
+
+    .clear {
+      background-color: #ff6f61;
+      color: #fff;
+    }
+
+    .clear:hover {
+      background-color: #e85c4f;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Calcinator</h1>
+
+  <div class="calculator">
+    <div id="inputbox"></div>
+    <div class="keyboard">
+      <div class="btn">1</div>
+      <div class="btn">2</div>
+      <div class="btn">3</div>
+      <div class="btn-operator">+</div>
+      <div class="btn">4</div>
+      <div class="btn">5</div>
+      <div class="btn">6</div>
+      <div class="btn-operator">-</div>
+      <div class="btn">7</div>
+      <div class="btn">8</div>
+      <div class="btn">9</div>
+      <div class="btn-operator">*</div>
+      <div class="btn clear">C</div>
+      <div class="btn">0</div>
+      <div class="btn-operator">=</div>
+      <div class="btn-operator">/</div>
+    </div>
+  </div>
+
+  <script>
+    let bag = "";
+    let keys = document.querySelectorAll(".keyboard > div");
+
+    for (let i = 0; i < keys.length; i++) {
+      keys[i].addEventListener("click", mycal);
+    }
+
+    function mycal(event) {
+      let target = event.target.innerText;
+
+      if (target == "C") {
+        bag = "";
+        document.querySelector("#inputbox").innerText = bag;
+      } else if (target == "=") {
+        try {
+          let ans = eval(bag);
+          document.querySelector("#inputbox").innerText = ans;
+          bag = ans.toString(); // Store result for next input
+        } catch {
+          document.querySelector("#inputbox").innerText = "Error";
+          bag = "";
+        }
+      } else {
+        bag += target;
+        document.querySelector("#inputbox").innerText = bag;
+      }
+    }
+  </script>
+</body>
+</html>
